@@ -1,0 +1,17 @@
+{
+  "enable_hidiffusion": true,
+  "enable_xformers": true,
+  "enable_cpu_offload": true,
+  "enable_vae_tiling": true,
+  "steps": 12,
+  "height": 2048,
+  "width": 2048,
+  "target_megapixels": 4.194,
+  "vram_budget_gb": 12.0,
+  "prefer_speed": true,
+  "model_family": "sdxl",
+  "notes": [
+    "Thresholds are rule-based and intended to be calibrated with your benchmark CSV.",
+    "When xformers is unavailable, the runner should fall back gracefully and record that metadata."
+  ]
+}

@@ -3,3 +3,7 @@ diffusers>=0.25.0
 transformers
 accelerate
 xformers
+safetensors
+numpy
+pandas
+Pillow

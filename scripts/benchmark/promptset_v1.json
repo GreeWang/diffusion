@@ -1,0 +1,45 @@
+{
+  "negative_prompt": "blurry, ugly, duplicate, poorly drawn face, deformed, mosaic, artifacts, bad limbs",
+  "prompts": [
+    {
+      "name": "stone_golem",
+      "prompt": "Standing tall amidst the ruins, a stone golem awakens, vines and flowers sprouting from the crevices in its body."
+    },
+    {
+      "name": "robotic_owl",
+      "prompt": "In the depths of a mystical forest, a robotic owl with night vision lenses for eyes watches over the nocturnal creatures."
+    },
+    {
+      "name": "border_collie",
+      "prompt": "An adorable happy brown border collie sitting on a bed, high detail."
+    },
+    {
+      "name": "exotic_fox",
+      "prompt": "Thick strokes, bright colors, an exotic fox, cute, chibi kawaii, detailed fur, hyperdetailed, fairytale, centered composition."
+    },
+    {
+      "name": "city_rain",
+      "prompt": "A cinematic cyberpunk street in the rain, glowing neon signs, reflective puddles, dramatic lighting, ultra detailed."
+    },
+    {
+      "name": "desert_train",
+      "prompt": "A retro-futuristic train racing through a desert canyon at golden hour, motion blur, dynamic composition."
+    },
+    {
+      "name": "underwater_library",
+      "prompt": "An underwater library with floating books, glass domes, tropical fish, shafts of sunlight, dreamlike atmosphere."
+    },
+    {
+      "name": "alpine_cabin",
+      "prompt": "A cozy alpine cabin after snowfall, smoke rising from the chimney, warm interior light, photorealistic."
+    },
+    {
+      "name": "mecha_gardener",
+      "prompt": "A gentle mecha gardener tending a rooftop greenhouse full of giant flowers, anime illustration, crisp details."
+    },
+    {
+      "name": "mars_market",
+      "prompt": "A lively open-air market on Mars, red dust in the air, modular stalls, travelers in realistic space suits."
+    }
+  ]
+}

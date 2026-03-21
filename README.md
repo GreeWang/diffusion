@@ -28,6 +28,62 @@
 <br>
 
 
+
+## Benchmark Toolkit
+
+This fork adds an interview-ready engineering workflow on top of the original HiDiffusion package:
+
+- `scripts/benchmark/run_benchmark.py`: reproducible benchmark runner for baseline diffusers vs `enable_hidiffusion`.
+- `scripts/benchmark/auto_config.py`: rule-based strategy recommender from VRAM budget and target resolution.
+- `docs/resume_and_interview.md`: resume bullets and interview talking points.
+- `tests/test_smoke.py`: CPU-friendly smoke tests for the artifact generation flow.
+
+### Deliverables
+
+- `raw.csv` with `latency_sec`, `throughput_img_s`, `peak_vram_mb`, failure reason, and version metadata.
+- `report.md` with aggregate tables and an auto-generated conclusion paragraph.
+- `samples/*.png` for quick qualitative inspection.
+- `strategy.json` for reproducible inference configuration.
+
+### Quick Start
+
+Install the project dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run a CPU-safe smoke benchmark that generates CSV, Markdown, metadata, and sample images without downloading a model:
+
+```bash
+python scripts/benchmark/run_benchmark.py   --dry_run 1   --height 512,1024,1536   --width 512,1024,1536   --seeds 0,1   --limit_prompts 3   --enable_hidiffusion 0   --out_dir results/baseline_smoke
+
+python scripts/benchmark/run_benchmark.py   --dry_run 1   --height 512,1024,1536   --width 512,1024,1536   --seeds 0,1   --limit_prompts 3   --enable_hidiffusion 1   --out_dir results/hidiffusion_smoke
+```
+
+Generate a strategy recommendation:
+
+```bash
+python scripts/benchmark/auto_config.py   --vram_budget_gb 12   --height 2048   --width 2048   --out results/strategy_12gb_2048.json
+```
+
+### Real Benchmark Example
+
+When this machine has `diffusers` plus a downloadable model available, the same runner can do a real benchmark:
+
+```bash
+python scripts/benchmark/run_benchmark.py   --model_id "stabilityai/stable-diffusion-xl-base-1.0"   --scheduler ddim   --height 1024,1536,2048   --width 1024,1536,2048   --steps 20   --seeds 0,1,2   --limit_prompts 3   --enable_hidiffusion 0   --out_dir results/baseline_gpu
+
+python scripts/benchmark/run_benchmark.py   --model_id "stabilityai/stable-diffusion-xl-base-1.0"   --scheduler ddim   --height 1024,1536,2048   --width 1024,1536,2048   --steps 20   --seeds 0,1,2   --limit_prompts 3   --enable_hidiffusion 1   --out_dir results/hidiffusion_gpu
+```
+
+### Reproducibility Notes
+
+- Prompt set lives at `scripts/benchmark/promptset_v1.json`.
+- The runner records Python, Torch, Diffusers, device, and timestamp metadata.
+- Warmup is separated from measured runs in real inference mode.
+- Benchmark fairness comes from fixed prompt, seed, scheduler, steps, and guidance scale while only switching the HiDiffusion patch.
+
 ## 👉 Why HiDiffusion
 
 - A  **training-free method that increases the resolution and speed of pretrained diffusion models.**
