@@ -7,3 +7,5 @@ safetensors
 numpy
 pandas
 Pillow
+PyYAML
+matplotlib

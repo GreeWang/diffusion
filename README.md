@@ -205,6 +205,62 @@ benchmark 主要记录以下指标：
 
 该脚本既可用于小规模 smoke test，也可用于真实 GPU 环境下的多分辨率 benchmark。
 
+## Ablation Matrix Workflow
+
+本仓库现在也包含一套完整的消融实验工作流，用于系统对比 `baseline / HiDiffusion / xformers / cpu_offload / vae_tiling` 的组合效果，对应实验计划文档为 `HiDiffusion 消融实验矩阵执行计划.pdf`。
+
+### 交付物
+
+* `experiments/ablation_manifest.yaml`：实验矩阵定义
+* `scripts/ablation/gen_manifest.py`：生成 P0 / P1 / P2 manifest
+* `scripts/ablation/run_one.py`：以单独进程执行单个配置
+* `scripts/ablation/run_manifest.py`：展开 manifest 并批量执行任务
+* `scripts/ablation/aggregate.py`：聚合输出 `ablation.csv`、`ablation_report.md`、`recommended_strategy.json`
+* `scripts/ablation/plot.py`：生成 `results/ablation/figures/` 下的图表
+
+### 快速验证
+
+```bash
+python scripts/ablation/gen_manifest.py \
+  --profile smoke \
+  --model_id "runwayml/stable-diffusion-v1-5" \
+  --out experiments/ablation_manifest.yaml
+
+python scripts/ablation/run_manifest.py \
+  --manifest experiments/ablation_manifest.yaml \
+  --dry_run 1
+
+python scripts/ablation/aggregate.py \
+  --run_dir results/ablation/runs/<run_id>
+
+python scripts/ablation/plot.py \
+  --csv results/ablation/ablation.csv
+```
+
+### 正式 P0 实验
+
+```bash
+python scripts/ablation/gen_manifest.py \
+  --profile p0 \
+  --model_id "runwayml/stable-diffusion-v1-5" \
+  --out experiments/ablation_manifest.yaml
+
+python scripts/ablation/run_manifest.py \
+  --manifest experiments/ablation_manifest.yaml
+
+python scripts/ablation/aggregate.py \
+  --run_dir results/ablation/runs/<run_id>
+
+python scripts/ablation/plot.py \
+  --csv results/ablation/ablation.csv
+```
+
+### 设计说明
+
+* `run_manifest.py` 会为每个配置启动独立子进程，避免 `cpu_offload` 等 hook 污染后续实验
+* 可以使用 `--profile smoke`、`--dry_run 1` 或 `--max_jobs N` 做快速验证
+* `aggregate.py` 会汇总成功率、95% CI、失败原因以及推荐配置，便于直接写入实验报告
+
 ### 2. 生成推荐配置
 
 可以通过 `auto_config.py` 输入显存预算和目标分辨率，获得推荐推理策略。

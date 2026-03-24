@@ -1,0 +1,8 @@
+{
+  "exp_id": "hidiffusion",
+  "height": 1024,
+  "width": 1024,
+  "mean_latency_sec": 1.990578,
+  "mean_peak_vram_mb": 5081.222,
+  "selection_rule": "Lowest average latency among successful runs, breaking ties with lower peak VRAM."
+}

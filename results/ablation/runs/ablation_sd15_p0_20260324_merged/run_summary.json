@@ -1,0 +1,7 @@
+{
+  "base_non_xformers_rows": 72,
+  "xformers_rows": 72,
+  "merged_rows": 144,
+  "base_run_dir": "results/ablation/runs/ablation_sd15_p0_20260324",
+  "xformers_run_dir": "results/ablation/runs/ablation_sd15_xformers_patch_20260324"
+}

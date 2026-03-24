@@ -1,0 +1,8 @@
+{
+  "run_id": "ablation_sd15_p0_20260324",
+  "manifest_path": "experiments/ablation_manifest.yaml",
+  "run_dir": "results/ablation/runs/ablation_sd15_p0_20260324",
+  "total_jobs": 144,
+  "completed_jobs": 144,
+  "failed_subprocesses": 0
+}

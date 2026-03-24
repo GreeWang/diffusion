@@ -1,0 +1,47 @@
+run_id: ablation_sd15_xformers_patch_20260324
+profile: p0
+model_id: runwayml/stable-diffusion-v1-5
+scheduler: ddim
+promptset_path: experiments/promptset_v1.json
+resolutions:
+- h: 1024
+  w: 1024
+- h: 1536
+  w: 1536
+- h: 2048
+  w: 2048
+steps: 10
+seeds:
+- 0
+- 1
+repeats: 3
+limit_prompts: 1
+guidance_scale: 7.5
+dtype: fp16
+device: cuda
+num_warmup: 1
+matrix:
+- exp_id: base+xformers
+  priority: P0
+  hidiffusion: 0
+  xformers: 1
+  cpu_offload: 0
+  vae_tiling: 0
+- exp_id: hi+xformers
+  priority: P0
+  hidiffusion: 1
+  xformers: 1
+  cpu_offload: 0
+  vae_tiling: 0
+- exp_id: hi+xformers+tiling
+  priority: P0
+  hidiffusion: 1
+  xformers: 1
+  cpu_offload: 0
+  vae_tiling: 1
+- exp_id: hi+xformers+offload
+  priority: P0
+  hidiffusion: 1
+  xformers: 1
+  cpu_offload: 1
+  vae_tiling: 0

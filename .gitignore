@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+
+# Local experiment artifacts
+results/ablation/runs/*/samples/
+results/ablation/runs/*/logs/
